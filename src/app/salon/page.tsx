@@ -70,6 +70,11 @@ const SERVICES = [
 
 /* ─── Galería del espacio (todas las fotos reales) ─── */
 const GALLERY = [
+  // Fiestas / electrónica — protagonistas, van primero
+  { src: img("fiesta-01.jpg"), caption: "Fiesta electrónica" },
+  { src: img("fiesta-02.jpg"), caption: "Show en vivo" },
+  { src: img("fiesta-03.jpg"), caption: "Show de láseres" },
+  { src: img("fiesta-04.jpg"), caption: "Festival a pleno" },
   { src: img("congreso-auditorio.jpg"), caption: "Auditorio montado" },
   { src: img("congreso-multitud.jpg"), caption: "Congreso a sala llena" },
   { src: img("expo-stands-aereo.jpg"), caption: "Vista aérea de stands" },
