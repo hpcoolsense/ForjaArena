@@ -30,6 +30,7 @@ const EVENT_TYPES = [
   { tag: "Ferias", title: "Ferias & Exposiciones", desc: "Hasta 120 stands modulares en planta libre. Montaje y desmontaje sin restricciones.", src: img("feria-stands.jpg") },
   { tag: "Expos", title: "Salones & Muestras", desc: "Espacio ideal para salones del automóvil, muestras industriales y lanzamientos de marca.", src: img("expo-autos.jpg") },
   { tag: "Galas", title: "Eventos de Gala", desc: "Cenas de gala, fiestas y celebraciones con catering de primer nivel y ambientación a medida.", src: img("gala-mesas.jpg") },
+  { tag: "Fiestas", title: "Fiestas & Recitales", desc: "Miles de personas ya pasaron por el salón de eventos con más trayectoria de Córdoba.", src: img("fiesta-01.jpg") },
   { tag: "Corporativo", title: "Eventos Corporativos", desc: "Lanzamientos, capacitaciones y reuniones de empresa a cualquier escala.", src: img("congreso-auditorio.jpg") },
 ];
 
