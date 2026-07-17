@@ -15,13 +15,22 @@ const img = (name: string) => asset(`/salon/${name}`);
 const FOCUS = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E21F17] focus-visible:ring-offset-2";
 const WHATSAPP = "5493513905573";
 
-/* ─── Slides del carrusel principal (foto + tipo de evento) ─── */
+/* ─── Slides del carrusel principal (foto + tipo de evento) ───
+   Regla del cliente: acá van TODAS las fotos de EVENT_TYPES y GALLERY (el hero las pasa en B&N vía grayscale). */
 const SLIDES = [
   { src: img("congreso-multitud.jpg"), type: "Congresos" },
   { src: img("feria-stands.jpg"), type: "Ferias & Expos" },
   { src: img("expo-autos.jpg"), type: "Salones & Muestras" },
   { src: img("gala-mesas.jpg"), type: "Eventos de Gala" },
   { src: img("congreso-auditorio.jpg"), type: "Convenciones" },
+  { src: img("fiesta-01.jpg"), type: "Fiestas & Recitales" },
+  { src: img("expo-stands-aereo.jpg"), type: "Exposiciones" },
+  { src: img("fiesta-02.jpg"), type: "Shows en Vivo" },
+  { src: img("feria-industrial.jpg"), type: "Ferias Industriales" },
+  { src: img("fiesta-03.jpg"), type: "Electrónica" },
+  { src: img("gala-catering.jpg"), type: "Celebraciones" },
+  { src: img("fiesta-04.jpg"), type: "Festivales" },
+  { src: img("feria-metal.jpg"), type: "Industria & Metal" },
 ];
 
 /* ─── Tipos de evento (potencial del salón) ─── */
