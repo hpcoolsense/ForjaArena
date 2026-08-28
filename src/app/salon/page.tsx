@@ -11,6 +11,7 @@ import { AnimatedNumber } from "@/components/ui/animated-number";
    Carbón #1D1D1B (texto) · Gris #979797 · Rojo #E21F17 · Fondo gris claro #e1e1df */
 
 const img = (name: string) => asset(`/salon/${name}`);
+const flyer = (name: string) => asset(`/eventos/${name}`);
 
 const FOCUS = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E21F17] focus-visible:ring-offset-2";
 const WHATSAPP = "5493513047186";
@@ -96,13 +97,19 @@ const GALLERY = [
   { src: img("gala-catering.jpg"), caption: "Servicio de catering" },
 ];
 
-/* ─── Eventos pasados (sin fechas) ─── */
+/* ─── Eventos pasados: flyers reales de la temporada 2026, del más reciente al más viejo ─── */
 const EVENTS = [
-  { title: "EXPO AUTOS CÓRDOBA", type: "Expo", info: "Salón del automóvil · 3 días", src: img("expo-autos.jpg"), accent: false, featured: true },
-  { title: "CONGRESO MÉDICO PROVINCIAL", type: "Congreso", info: "+1.500 asistentes", src: img("congreso-multitud.jpg"), accent: false, featured: false },
-  { title: "FERIA METALMECÁNICA", type: "Feria", info: "Industria & tecnología", src: img("feria-metal.jpg"), accent: false, featured: false },
-  { title: "NOCHE DE GALA SOLIDARIA", type: "Gala", info: "Cena & show en vivo", src: img("gala-mesas.jpg"), accent: false, featured: false },
-  { title: "FERIA DEL EMPRENDEDOR", type: "Feria", info: "Networking & stands", src: img("feria-stands.jpg"), accent: false, featured: false },
+  { title: "Guy J", subtitle: "Open to Close", type: "Electrónica", date: "Sáb 22 de agosto", src: flyer("guyj-22ago.jpg") },
+  { title: "La Mona Jiménez", subtitle: "Día del Amigo", type: "Cuarteto", date: "Sáb 1 de agosto", src: flyer("lamona-diadelamigo-01ago.jpg") },
+  { title: "Moments Córdoba", subtitle: "Guy Mantzur · Simon Vuarambon · Chicola", type: "Electrónica", date: "Sáb 25 de julio", src: flyer("moments-25jul.jpg") },
+  { title: "EXICAL", subtitle: "Exposición del Calzado de la Región Centro", type: "Feria", date: "5, 6 y 7 de julio", src: flyer("exical-05jul.jpg") },
+  { title: "Ulises Bueno", subtitle: "Festejo mi cumple", type: "Cuarteto", date: "Sáb 27 de junio", src: flyer("ulises-27jun.jpg") },
+  { title: "Jean Carlos", subtitle: "Mi Historia · 30 años", type: "Tropical", date: "Sáb 13 de junio", src: flyer("jeancarlos-13jun.jpg") },
+  { title: "BiMM 2026", subtitle: "Bienal MetalMecánica", type: "Feria", date: "28, 29 y 30 de mayo", src: flyer("bimm-28may.jpg") },
+  { title: "FIMAR", subtitle: "Feria Internacional del Mueble Argentino", type: "Feria", date: "13 al 15 de mayo", src: flyer("fimar-13may.jpg") },
+  { title: "John Digweed", subtitle: "Open to Close", type: "Electrónica", date: "Sáb 18 de abril", src: flyer("digweed-18abr.jpg") },
+  { title: "La Mona Jiménez", subtitle: "Nueva fecha", type: "Cuarteto", date: "Sáb 14 de marzo", src: flyer("lamona-14mar.jpg") },
+  { title: "La Mona Jiménez", subtitle: "Especial Día de los Enamorados · Agotado", type: "Cuarteto", date: "Sáb 14 de febrero", src: flyer("lamona-14feb.jpg") },
 ];
 
 const NAV_LINKS = [
@@ -495,58 +502,59 @@ function Galeria() {
   );
 }
 
-/* ════════════════════════ PRÓXIMOS EVENTOS ════════════════════════ */
-function ProximosEventos() {
-  const featured = EVENTS.find((e) => e.featured)!;
-  const rest = EVENTS.filter((e) => !e.featured);
-
-  const TypeTag = ({ type, accent }: { type: string; accent: boolean }) => (
-    <span className={cn("rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider", accent ? "bg-[#E21F17] text-white" : "bg-white/90 text-[#1D1D1B]")}>{type}</span>
-  );
-
+/* ════════════════════════ EVENTOS PASADOS ════════════════════════ */
+/* Muro de flyers: el arte de cada afiche ES la tarjeta, así que la imagen va
+   entera (4/5) y el texto abajo, sin tapar el diseño original. */
+function EventosPasados() {
   return (
     <section id="eventos" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <Reveal><SectionLabel>Agenda</SectionLabel></Reveal>
+            <Reveal><SectionLabel>Temporada 2026</SectionLabel></Reveal>
             <Reveal delay={0.1}><h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-[#1D1D1B] sm:text-5xl">Eventos pasados</h2></Reveal>
           </div>
-          <Reveal delay={0.15}><p className="max-w-xs text-sm text-[#4f4f4f]">Congresos, ferias, expos y galas que ya pasaron por FORJA.</p></Reveal>
+          <Reveal delay={0.15}><p className="max-w-xs text-sm text-[#4f4f4f]">Recitales, fiestas y ferias que ya pasaron por FORJA este año.</p></Reveal>
         </div>
 
-        <Reveal delay={0.1}>
-          <div className="group mt-12 overflow-hidden rounded-2xl border border-black/5 bg-[#f4f4f3] transition-shadow duration-500 hover:shadow-xl hover:shadow-black/10">
-            <div className="grid md:grid-cols-2">
-              <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[340px]">
-                <Image src={featured.src} alt={featured.title} fill className="object-cover transition-transform duration-[800ms] group-hover:scale-105" unoptimized />
-                <div className="absolute left-4 top-4"><TypeTag type={featured.type} accent={featured.accent} /></div>
-              </div>
-              <div className="flex flex-col justify-center p-7 sm:p-10">
-                <h3 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-[#1D1D1B] sm:text-4xl">{featured.title}</h3>
-                <p className="mt-2 text-base text-[#4f4f4f]">{featured.info}</p>
-                <a href="#contacto" className={cn("mt-6 inline-block w-fit rounded-md bg-[#1D1D1B] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#E21F17]", FOCUS)}>Más información</a>
-              </div>
-            </div>
-          </div>
-        </Reveal>
-
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {rest.map((e, i) => (
-            <Reveal key={e.title} delay={0.05 * i}>
-              <div className="group overflow-hidden rounded-xl border border-black/5 bg-[#f4f4f3] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-lg hover:shadow-black/10">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image src={e.src} alt={e.title} fill className="object-cover transition-transform duration-[800ms] group-hover:scale-110" unoptimized />
-                  <div className="absolute left-3 top-3"><TypeTag type={e.type} accent={e.accent} /></div>
+        <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+          {EVENTS.map((e, i) => (
+            <Reveal key={`${e.title}-${e.date}`} delay={0.04 * (i % 4)}>
+              <article className="group h-full overflow-hidden rounded-xl border border-black/5 bg-[#f4f4f3] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-lg hover:shadow-black/10">
+                <div className="relative aspect-[4/5] overflow-hidden bg-[#1D1D1B]">
+                  <Image
+                    src={e.src}
+                    alt={`Flyer de ${e.title} en FORJA — ${e.date}`}
+                    fill
+                    sizes="(min-width:1024px) 300px, (min-width:640px) 33vw, 50vw"
+                    className="object-cover transition-transform duration-[800ms] group-hover:scale-105"
+                    unoptimized
+                  />
                 </div>
-                <div className="p-5">
-                  <h3 className="font-[family-name:var(--font-heading)] text-lg font-bold text-[#1D1D1B]">{e.title}</h3>
-                  <p className="mt-1 text-sm text-[#4f4f4f]">{e.info}</p>
+                <div className="p-3.5 sm:p-4">
+                  {/* El tipo va acá abajo y no sobre el flyer: encima tapaba arte real
+                      ("NUEVA FECHA" de La Mona, la fecha de Jean Carlos, el logo de FIMAR). */}
+                  <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+                    <span className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 shrink-0 bg-[#E21F17]" />
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#4f4f4f] sm:text-[11px]">{e.date}</span>
+                    </span>
+                    <span className="rounded-full bg-[#1D1D1B]/[0.06] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#4f4f4f] sm:text-[10px]">{e.type}</span>
+                  </div>
+                  <h3 className="mt-1.5 font-[family-name:var(--font-heading)] text-sm font-bold leading-tight text-[#1D1D1B] sm:text-base">{e.title}</h3>
+                  <p className="mt-0.5 line-clamp-2 text-xs leading-snug text-[#4f4f4f]">{e.subtitle}</p>
                 </div>
-              </div>
+              </article>
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.1}>
+          <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl border border-black/5 bg-[#f4f4f3] px-6 py-7 text-center sm:flex-row sm:justify-between sm:px-9 sm:text-left">
+            <p className="text-base text-[#4f4f4f]">¿Querés que tu evento sea el próximo en esta lista?</p>
+            <a href="#contacto" className={cn("inline-block w-fit shrink-0 rounded-md bg-[#1D1D1B] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#E21F17]", FOCUS)}>Consultar fecha</a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -659,7 +667,7 @@ export default function Salon() {
         <Datos />
         <Servicios />
         <Galeria />
-        <ProximosEventos />
+        <EventosPasados />
         <Contacto />
       </main>
       <Footer />
