@@ -12,6 +12,7 @@ import { AnimatedNumber } from "@/components/ui/animated-number";
 
 const img = (name: string) => asset(`/salon/${name}`);
 const flyer = (name: string) => asset(`/eventos/${name}`);
+const video = (name: string) => asset(`/videos/${name}`);
 
 const FOCUS = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E21F17] focus-visible:ring-offset-2";
 const WHATSAPP = "5493513047186";
@@ -275,19 +276,51 @@ function SectionLabel({ children, dark = false }: { children: React.ReactNode; d
   );
 }
 
+/* ════════════════════════ VIDEO DE FONDO ════════════════════════ */
+/* Montaje de tomas de drone (cortes secos, en loop) detrás del texto de una sección.
+   El video es sticky: en secciones más altas que la pantalla (Datos en mobile) acompaña el
+   scroll a alto de pantalla en vez de estirarse a todo el alto y mostrar una franja angosta.
+   Sólo se descarga y reproduce cerca de la vista; con "reducir movimiento" queda el poster. */
+function BgVideo({ src, poster }: { src: string; poster: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    v.muted = true; // el autoplay exige muted como propiedad, no alcanza con el atributo
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) v.play().catch(() => {});
+      else v.pause();
+    }, { rootMargin: "200px 0px" });
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="sticky top-0 h-lvh max-h-full w-full overflow-hidden">
+        <video ref={ref} src={src} poster={poster} muted loop playsInline preload="none" className="h-full w-full object-cover" />
+      </div>
+    </div>
+  );
+}
+
 /* ════════════════════════ INTRO ════════════════════════ */
+/* Va sobre video: arranca justo después del marquee y corta donde empiezan las tarjetas. */
 function Intro() {
   return (
-    <section id="espacio" className="bg-[#e1e1df] py-20 sm:py-28">
-      <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
-        <Reveal><div className="flex justify-center"><SectionLabel>El salón</SectionLabel></div></Reveal>
+    <section id="espacio" className="relative isolate bg-[#1D1D1B] py-20 sm:py-28">
+      <BgVideo src={video("salon-espacio.mp4")} poster={video("salon-espacio.jpg")} />
+      <div className="absolute inset-0 bg-[#1D1D1B]/65" />
+      <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8">
+        <Reveal><div className="flex justify-center"><SectionLabel dark>El salón</SectionLabel></div></Reveal>
         <Reveal delay={0.1}>
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-[#1D1D1B] sm:text-5xl md:text-6xl">
+          <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
             Un espacio único<br />para tu evento
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#4f4f4f] sm:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
             FORJA ARENA es un salón industrial de gran escala que se transforma según lo que
             necesites: de un congreso para miles a una feria con cientos de stands, de una gala
             elegante a un recital. Versatilidad, infraestructura y producción en un mismo lugar.
@@ -303,7 +336,7 @@ function Intro() {
 /* ════════════════════════ VERSATILIDAD ════════════════════════ */
 function Versatilidad() {
   return (
-    <section className="bg-[#e1e1df] pb-20 sm:pb-28">
+    <section className="bg-[#e1e1df] pt-14 pb-20 sm:pt-20 sm:pb-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {EVENT_TYPES.map((t, i) => (
@@ -340,8 +373,10 @@ function Counter({ value, prefix, suffix }: { value: number; prefix: string; suf
 
 function Datos() {
   return (
-    <section id="datos" className="bg-[#1D1D1B] py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+    <section id="datos" className="relative isolate bg-[#1D1D1B] py-20 sm:py-28">
+      <BgVideo src={video("salon-datos.mp4")} poster={video("salon-datos.jpg")} />
+      <div className="absolute inset-0 bg-[#1D1D1B]/80" />
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal><SectionLabel dark>Datos del salón</SectionLabel></Reveal>
         <Reveal delay={0.1}>
           <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-white sm:text-5xl">
